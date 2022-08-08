@@ -10,6 +10,7 @@ connectMongo.then(() => {
 })
 
 app.use("/auth",require('./routes/auth'))
+app.use("/notes",require('./routes/notes'))
 
 app.listen(config.port, () => {
     console.log(`PORT UP AT ${config.port}`)
