@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
     const [credentials, setCredentials] = useState({ email: "", password: "" })
+    let navigate = useNavigate()
     const onSubmit = async (e) => {
         e.preventDefault();
         const response = await fetch(`http://localhost:5001/auth/login`, {
@@ -12,7 +14,9 @@ const Login = () => {
             body: JSON.stringify({ email: credentials.email, password: credentials.password })
         })
         const resp = await response.json()
-        console.log(resp)
+        console.log(resp.authtoken)
+        localStorage.setItem("token", resp.authtoken)
+        navigate("/")
     }
     const onChange = (e) => {
         setCredentials({ ...credentials, [e.target.name]: e.target.value })
